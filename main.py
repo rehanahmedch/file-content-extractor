@@ -1,6 +1,7 @@
 import os
 import pandas as pd
 import re
+from decouple import config
 
 def get_email_addresses(file_path):
     with open(file_path, 'r') as file:
@@ -12,15 +13,21 @@ def get_email_subject(file_path):
     with open(file_path, 'r') as file:
             file_content = file.read()
             subject_list = []
+            pre_start = 0
             start = 0
 
             while True:
-                start = file_content.find('|mail -s "', start)
+                pre_start = file_content.find('|', start)
+                if pre_start == -1:
+                    break
+                start = file_content.find('"', pre_start + 1)
+                
                 if start == -1:
                     break
                 end = file_content.find('"', start + 1)
                 if end == -1:
                     break
+
                 text = file_content[start + 1: end]
                 subject_list.append(text)
                 start = end + 1
@@ -39,8 +46,8 @@ def content_extractor(directory_path, file_extension):
     return df
 
 # Need to replace 'directory_path' and 'file_extension' with the required values
-directory_path = 'C:\Users\Rehan.ahmed7\Desktop\ProdUser1\clean'
-file_extension = '.sh'
+directory_path = config(r'DIR_PATH')
+file_extension = config('FILE_EXTENSION')
 
 df = content_extractor(directory_path, file_extension)
 print(df)
