@@ -46,8 +46,13 @@ def content_extractor(directory_path, file_extension):
     return df
 
 # Need to replace 'directory_path' and 'file_extension' with the required values
-directory_path = config(r'DIR_PATH')
+directory_path = config('DIR_PATH')
 file_extension = config('FILE_EXTENSION')
 
 df = content_extractor(directory_path, file_extension)
+
+# Exporting content in the same folder
+f_name = 'report_name_extraction.csv'
+df.to_csv(os.path.join(directory_path, f_name), sep='|' , index=False)
+
 print(df)
