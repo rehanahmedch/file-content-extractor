@@ -34,17 +34,6 @@ def get_email_subject(file_path):
 
     return subject_list
 
-# def content_extractor(directory_path, file_extension):
-#     data = []
-#     for file_name in os.listdir(directory_path):
-#         if file_name.endswith(file_extension):
-#             file_path = os.path.join(directory_path, file_name)
-#             email_addresses = get_email_addresses(file_path)
-#             email_subject = get_email_subject(file_path)
-#             data.append({'File Name': file_name, 'Email Subject': email_subject, 'Email Addresses': ', '.join(email_addresses)})
-#     df = pd.DataFrame(data)
-#     return df
-
 def content_extractor(directory_path, file_extension):
     file_data = []
     for root, dirs, files in os.walk(directory_path):
@@ -72,9 +61,5 @@ file_date = content_extractor(directory_path, file_extension)
 df = pd.DataFrame(file_date)
 f_name = 'report_name_extraction.csv'
 df.to_csv(os.path.join(output_file_path, f_name), sep='|', index=False)
-
-# Exporting content in the same folder
-# f_name = 'report_name_extraction.csv'
-# df.to_csv(os.path.join(directory_path, f_name), sep='|' , index=False)
 
 print(df)
