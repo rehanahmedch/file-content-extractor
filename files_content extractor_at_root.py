@@ -45,7 +45,7 @@ def content_extractor(directory_path, file_extension):
     df = pd.DataFrame(data)
     return df
 
-# Need to replace 'directory_path' and 'file_extension' with the required values
+# Update the path and extension in the .env or hard code it
 directory_path = config('DIR_PATH')
 file_extension = config('FILE_EXTENSION')
 
@@ -55,4 +55,3 @@ df = content_extractor(directory_path, file_extension)
 f_name = 'report_name_extraction.csv'
 df.to_csv(os.path.join(directory_path, f_name), sep='|' , index=False)
 
-print(df)
